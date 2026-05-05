@@ -1,3 +1,5 @@
+//go:generate goversioninfo -icon=app.ico -manifest=app.manifest
+
 package main
 
 import (

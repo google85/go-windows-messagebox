@@ -15,9 +15,14 @@ all: build
 build:
 	@echo "Building..."
 	@GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
-	go build $(BUILD_FLAGS) -o ${BUILD_DIR}/${BIN_NAME}_syswin.exe cmd/main_syswin.go
+	go generate cmd/app1/main.go && \
+	GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
+	go build $(BUILD_FLAGS) -o ${BUILD_DIR}/${BIN_NAME}_syscall.exe cmd/app1/main.go
+
 	@GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
-	go build $(BUILD_FLAGS) -o ${BUILD_DIR}/${BIN_NAME}_syscall.exe cmd/main_syscall.go
+	go generate cmd/app2/main.go && \
+	GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
+	go build $(BUILD_FLAGS) -o ${BUILD_DIR}/${BIN_NAME}_syswin.exe cmd/app2/main.go
 
 .PHONY: test
 test:
