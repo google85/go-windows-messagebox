@@ -13,7 +13,7 @@
                 "terminal.integrated.cwd": "/usr/src/app"
             },
             "extensions": [
-                "golang.Go",                  // requires 'go install golang.org/x/tools/gopls@v0.20.0'
+                "golang.Go"                  // requires 'go install golang.org/x/tools/gopls@v0.20.0'
             ]
         }
     },
