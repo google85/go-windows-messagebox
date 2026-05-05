@@ -1,0 +1,22 @@
+{
+    "name": "go-project",
+    "dockerComposeFile": "compose.yml",
+    "service": "devcontainer",
+    "workspaceFolder": "/usr/src/app",
+    "mounts": [
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached"
+    ],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.cwd": "/usr/src/app"
+            },
+            "extensions": [
+                "golang.Go",                  // requires 'go install golang.org/x/tools/gopls@v0.20.0'
+            ]
+        }
+    },
+    "forwardPorts": [
+    ]
+}

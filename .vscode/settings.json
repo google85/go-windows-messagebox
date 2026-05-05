@@ -1,0 +1,16 @@
+{
+    "json.schemaDownload.enable": false, // disables warning
+    "editor.defaultFormatter": "golang.go",
+    "editor.formatOnSave": false,
+    "files.associations": {
+        ".env": "ini",
+        ".air.toml": "ini"
+    },
+    "go.showWelcome": false,
+    "go.formatTool": "default",
+    "go.useLanguageServer": true,
+    "gopls": {
+        "build.env": {
+        }
+    }
+}
