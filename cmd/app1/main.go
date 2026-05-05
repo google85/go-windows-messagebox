@@ -1,6 +1,6 @@
-//go:generate goversioninfo -icon=app.ico -manifest=app.manifest -o resource.syso
-
 package main
+
+//go:generate goversioninfo -icon=app.ico -manifest=app.manifest -o resource.syso
 
 import (
 	"syscall"

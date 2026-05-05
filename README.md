@@ -12,4 +12,10 @@
 ### Usage:
 ```bash
 make build
+
+# run
+# - app1 - via syscall - doesn't show I icon in MessageBox
+./bin/msgbox_syscall.exe
+# - app2 - via syswin - shows I icon in MessageBox
+./bin/msgbox_syswin.exe
 ```
