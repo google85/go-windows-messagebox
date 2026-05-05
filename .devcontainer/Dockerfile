@@ -34,6 +34,9 @@ USER ${USERNAME}
 # Required for Go extension
 RUN go install golang.org/x/tools/gopls@v0.20.0
 
+# Required for resources, instead of windres
+RUN go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest
+
 RUN git config --global --add safe.directory /usr/src/app
 #ENV GOPRIVATE=github.com/google85
 
@@ -56,6 +59,6 @@ LABEL org.label-schema.schema-version="1.0" \
       org.opencontainers.image.source="https://github.com/google85/" \
       org.opencontainers.image.url="https://github.com/google85/" \
       org.opencontainers.image.version="1.0.0" \
-      org.opencontainers.image.created="2026-05-05"
+      org.opencontainers.image.created="2026-05-06"
 
 ENTRYPOINT [ "/bin/bash" ]
