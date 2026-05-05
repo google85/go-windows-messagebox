@@ -7,4 +7,7 @@ touch ./cmd/main.go
 # deps [for 2nd approach]
 go get golang.org/x/sys@v0.28.0
 
+# [already in devcontainer]
+go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest
+
 ```
