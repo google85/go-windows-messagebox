@@ -1,4 +1,4 @@
-//go:generate goversioninfo -icon=app.ico -manifest=app.manifest
+//go:generate goversioninfo -icon=app.ico -manifest=app.manifest -o resource.syso
 
 package main
 

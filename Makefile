@@ -12,17 +12,24 @@ endif
 .PHONY: all
 all: build
 
-build:
+build: build-app1 build-app2
 	@echo "Building..."
-	@GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
-	go generate cmd/app1/main.go && \
-	GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
-	go build $(BUILD_FLAGS) -o ${BUILD_DIR}/${BIN_NAME}_syscall.exe cmd/app1/main.go
 
-	@GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
-	go generate cmd/app2/main.go && \
-	GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
-	go build $(BUILD_FLAGS) -o ${BUILD_DIR}/${BIN_NAME}_syswin.exe cmd/app2/main.go
+build-app1:
+	@mkdir -p $(BUILD_DIR)
+	@cd cmd/app1 && \
+		GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
+		go generate . && \
+		GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
+		go build $(BUILD_FLAGS) -o ../../${BUILD_DIR}/${BIN_NAME}_syscall.exe .
+
+build-app2:
+	@mkdir -p $(BUILD_DIR)
+	@cd cmd/app2 && \
+		GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
+		go generate . && \
+		GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
+		go build $(BUILD_FLAGS) -o ../../${BUILD_DIR}/${BIN_NAME}_syswin.exe .
 
 .PHONY: test
 test:
@@ -37,4 +44,5 @@ confirm:
 clean: confirm
 	@echo "Cleaning up..."
 	@rm -rf ${BUILD_DIR}
-
+	@rm -f cmd/app1/resource.syso
+	@rm -f cmd/app2/resource.syso
