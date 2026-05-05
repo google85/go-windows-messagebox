@@ -2,7 +2,7 @@ BIN_VERSION:=1.0.0
 BIN_NAME:=msgbox
 BUILD_DIR:=./bin
 GO_VERSION:=1.24.3
-BUILD_FLAGS:=-ldflags "-s -w -H windowsgui" -trimpath
+BUILD_FLAGS:=-ldflags "-s -w -H windowsgui -X main.buildVersion=${BIN_VERSION}" -trimpath
 
 ifneq (,$(wildcard .env))
     include .env
@@ -15,7 +15,9 @@ all: build
 build:
 	@echo "Building..."
 	@GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
-	go build $(BUILD_FLAGS) -o ${BUILD_DIR}/${BIN_NAME}.exe cmd/*.go
+	go build $(BUILD_FLAGS) -o ${BUILD_DIR}/${BIN_NAME}_syswin.exe cmd/main_syswin.go
+	@GOARCH=amd64 GOOS=windows CGO_ENABLED=0 \
+	go build $(BUILD_FLAGS) -o ${BUILD_DIR}/${BIN_NAME}_syscall.exe cmd/main_syscall.go
 
 .PHONY: test
 test:

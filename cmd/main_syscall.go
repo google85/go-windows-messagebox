@@ -5,7 +5,7 @@ import (
 	"unsafe"
 )
 
-// var buildVersion string
+var buildVersion string
 
 func main() {
 	user32 := syscall.NewLazyDLL("user32.dll")
