@@ -4,6 +4,7 @@
 # Exclude unused files from release archive
 /.devcontainer      export-ignore
 /.vscode            export-ignore
+/.github            export-ignore
 /.gitignore         export-ignore
 /.gitattributes     export-ignore
 /.editorconfig      export-ignore
