@@ -3,6 +3,7 @@
 .github/
 .git/
 /bin
+**/resource.syso
 .gitattributes
 .editorconfig
 .gitignore

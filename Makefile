@@ -49,7 +49,7 @@ clean: confirm
 
 .PHONY: docker-build ## Build the binaries into an empty image
 docker-build:
-	@docker build --no-cache . \
+	@docker build . \
 		--target binary \
 		--build-arg GO_VERSION=${GO_VERSION} \
 		-t google85/msgbox-gui:binary \

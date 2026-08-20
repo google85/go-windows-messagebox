@@ -30,6 +30,10 @@ RUN mkdir -p /usr/src/app && \
     chown -R 1000:1000 /go /usr/src/app
 
 USER ${USERNAME}
+
+# Required for resources, instead of windres
+RUN go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest
+
 RUN git config --global --add safe.directory /usr/src/app
 #ENV GOPRIVATE=github.com/google85
 
@@ -41,7 +45,7 @@ RUN --mount=type=cache,target=/go/pkg/mod,uid=1000,gid=1000 \
 RUN --mount=type=cache,target=/go/pkg/mod,uid=1000,gid=1000 \
     go mod tidy
 
-COPY . .
+COPY --chown=1000:1000 . .
 
 RUN --mount=type=cache,target=/go/pkg/mod,uid=1000,gid=1000 \
     make build
@@ -51,21 +55,23 @@ RUN --mount=type=cache,target=/go/pkg/mod,uid=1000,gid=1000 \
 FROM scratch AS binary
 
 WORKDIR /
-COPY --from=builder /usr/src/app/bin/hello-cli       /hello-cli
+COPY --from=builder /usr/src/app/bin/msgbox_syswin.exe        /msgbox_syswin.exe
+COPY --from=builder /usr/src/app/bin/msgbox_syscall.exe       /msgbox_syscall.exe
 
 ###
 
 FROM alpine:3.18
 
 WORKDIR /usr/local/bin
-COPY --from=builder /usr/src/app/bin/hello-cli       /usr/local/bin/hello-cli
+COPY --from=builder /usr/src/app/bin/msgbox_syswin.exe        /usr/local/bin/msgbox_syswin.exe
+COPY --from=builder /usr/src/app/bin/msgbox_syscall.exe       /usr/local/bin/msgbox_syscall.exe
 
-ENTRYPOINT ["/usr/local/bin/hello-cli"]
+ENTRYPOINT ["/usr/local/bin/msgbox_syscall.exe"]
 
 LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.license="proprietary" \
-      org.label-schema.name="Hello world cli app" \
-      org.label-schema.description="Hello world cli app written in Go" \
+      org.label-schema.name="MsgBox go app" \
+      org.label-schema.description="MsgBox app written in Go" \
       maintainer="google85 <bpfcomp2005@gmail.com>" \
       go.version="1.24.3" \
       build.go.version="1.24.3" \
@@ -73,10 +79,10 @@ LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.vcs-url="https://github.com/google85/go-windows-messagebox" \
       org.label-schema.cmd="./hello-cli" \
       org.opencontainers.image.vendor="google85" \
-      org.opencontainers.image.title="Hello world cli app" \
-      org.opencontainers.image.description="Hello world cli app written in Go" \
+      org.opencontainers.image.title="MsgBox go app" \
+      org.opencontainers.image.description="MsgBox app written in Go" \
       org.opencontainers.image.authors="google85 <bpfcomp2005@gmail.com>" \
       org.opencontainers.image.source="https://github.com/google85/go-windows-messagebox" \
       org.opencontainers.image.url="https://github.com/google85/go-windows-messagebox" \
       org.opencontainers.image.version="1.0.0" \
-      org.opencontainers.image.created="2026-05-05"
+      org.opencontainers.image.created="2026-08-21"
