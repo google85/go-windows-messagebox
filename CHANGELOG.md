@@ -5,6 +5,7 @@
 - [x] update devcontainer to use image from DockerHub + additions
 - [x] add `make docker-build` of Windows binaries
 - [x] add `v...` version in title of MessageBox
+- [x] add Github Actions release script
 
 
 ### v0.1.0
