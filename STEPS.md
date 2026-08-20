@@ -10,4 +10,7 @@ go get golang.org/x/sys@v0.28.0
 # [already in devcontainer]
 go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest
 
+# create release/tag
+git tag v0.1.0
+git push -u origin v0.1.0
 ```
