@@ -146,10 +146,10 @@ jobs:
 
       - name: Check if secrets are available
         run: |
-          # if [ -z "${{ secrets.GHCR_TOKEN }}" ]; then
-            # echo "Repository secret is missing: GHCR_TOKEN "
-            # exit 1
-          # fi
+          if [ -z "${{ secrets.GHCR_TOKEN }}" ]; then
+            echo "Repository secret is missing: GHCR_TOKEN "
+            exit 1
+          fi
           if [ -z "${{ vars.DOCKERHUB_USERNAME }}" ]; then
             echo "Repository variable is missing: DOCKERHUB_USERNAME "
             exit 1
@@ -206,14 +206,14 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: windows/amd64
-          #platforms: linux/amd64
+          platforms: linux/amd64
           push: ${{ inputs.push_image }}
           load: true
           cache-from: type=gha,scope=${{ github.ref_name }}
           cache-to: type=gha,scope=${{ github.ref_name }},mode=max
           tags: |
             ${{ env.DOCKER_FULL_IMAGE }}
+            ghcr.io/${{ env.DOCKER_FULL_IMAGE }}
           build-args: |
             GO_VERSION=${{ env.GO_VERSION }}
 
@@ -222,8 +222,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: windows/amd64
-          #platforms: linux/amd64
+          platforms: linux/amd64
           target: binary
           outputs: type=local,dest=./bin/releases/
           push: false
@@ -274,6 +273,6 @@ jobs:
           docker image ls >> $GITHUB_STEP_SUMMARY
           echo "#### Docker full images:" >> $GITHUB_STEP_SUMMARY
           echo "-  _**${DOCKER_FULL_IMAGE}**_" >> $GITHUB_STEP_SUMMARY
-          ### echo "-  _**ghcr.io/${DOCKER_FULL_IMAGE}**_" >> $GITHUB_STEP_SUMMARY
+          echo "-  _**ghcr.io/${DOCKER_FULL_IMAGE}**_" >> $GITHUB_STEP_SUMMARY
           echo "#" >> $GITHUB_STEP_SUMMARY
           echo '#### 🧪 Binary was build and attached to this workflow for download.' >> $GITHUB_STEP_SUMMARY
