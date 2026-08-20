@@ -9,10 +9,13 @@ import (
 var buildVersion string
 
 func main() {
+	title := "Hello" + " v" + buildVersion
+	text := "Hello from Go!"
+
 	windows.MessageBox(
 		0,
-		windows.StringToUTF16Ptr("Hello from Go!"),
-		windows.StringToUTF16Ptr("Hello"),
+		windows.StringToUTF16Ptr(text),
+		windows.StringToUTF16Ptr(title),
 		windows.MB_OK|windows.MB_ICONINFORMATION,
 	)
 }
