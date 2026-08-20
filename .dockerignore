@@ -1,0 +1,11 @@
+.devcontainer/
+.vscode/
+.github/
+.git/
+/bin
+.gitattributes
+.editorconfig
+.gitignore
+CHANGELOG.md
+README.md
+STEPS.md

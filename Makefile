@@ -46,3 +46,11 @@ clean: confirm
 	@rm -rf ${BUILD_DIR}
 	@rm -f cmd/app1/resource.syso
 	@rm -f cmd/app2/resource.syso
+
+.PHONY: docker-build ## Build the binaries into an empty image
+docker-build:
+	@docker build --no-cache . \
+		--target binary \
+		--build-arg GO_VERSION=${GO_VERSION} \
+		-t google85/msgbox-gui:binary \
+		-o ./bin/docker/
