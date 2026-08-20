@@ -2,16 +2,12 @@ name: go-devcontainer
 services:
   devcontainer:
     image: devcontainer-go:1.24.3
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        USERNAME: vscode
-        GO_VERSION: 1.24.3
-    restart: unless-stopped
-    user: vscode
+    build: .
     hostname: devcontainer
     working_dir: /usr/src/app
+    environment:
+      - TZ=Europe/Bucharest
+      - GOPATH=/go
     volumes:
       - ..:/usr/src/app
     extra_hosts:
