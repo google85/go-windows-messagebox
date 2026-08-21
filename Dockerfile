@@ -88,4 +88,4 @@ WORKDIR /usr/local/bin
 COPY --from=builder /usr/src/app/bin/msgbox_syswin.exe        /usr/local/bin/msgbox_syswin.exe
 COPY --from=builder /usr/src/app/bin/msgbox_syscall.exe       /usr/local/bin/msgbox_syscall.exe
 
-ENTRYPOINT ["/usr/local/bin/msgbox_syscall.exe"]
+ENTRYPOINT ["/usr/local/bin/msgbox_syswin.exe"]
