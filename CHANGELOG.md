@@ -3,6 +3,7 @@
 
 ### v1.0.1
 - [x] add binary version as Docker image label
+- [x] bump version
 
 
 ### v1.0.0
