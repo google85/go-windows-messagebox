@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG GO_VERSION=1.24.3
+ARG BIN_VERSION=1.0.0
 
 FROM golang:${GO_VERSION}-bullseye AS builder
 
@@ -54,19 +55,11 @@ RUN --mount=type=cache,target=/go/pkg/mod,uid=1000,gid=1000 \
 
 FROM scratch AS binary
 
+ARG BIN_VERSION
+
 WORKDIR /
 COPY --from=builder /usr/src/app/bin/msgbox_syswin.exe        /msgbox_syswin.exe
 COPY --from=builder /usr/src/app/bin/msgbox_syscall.exe       /msgbox_syscall.exe
-
-###
-
-FROM alpine:3.18
-
-WORKDIR /usr/local/bin
-COPY --from=builder /usr/src/app/bin/msgbox_syswin.exe        /usr/local/bin/msgbox_syswin.exe
-COPY --from=builder /usr/src/app/bin/msgbox_syscall.exe       /usr/local/bin/msgbox_syscall.exe
-
-ENTRYPOINT ["/usr/local/bin/msgbox_syscall.exe"]
 
 LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.license="proprietary" \
@@ -84,5 +77,15 @@ LABEL org.label-schema.schema-version="1.0" \
       org.opencontainers.image.authors="google85 <bpfcomp2005@gmail.com>" \
       org.opencontainers.image.source="https://github.com/google85/go-windows-messagebox" \
       org.opencontainers.image.url="https://github.com/google85/go-windows-messagebox" \
-      org.opencontainers.image.version="1.0.0" \
+      org.opencontainers.image.version="${BIN_VERSION}" \
       org.opencontainers.image.created="2026-08-21"
+
+###
+
+FROM alpine:3.18
+
+WORKDIR /usr/local/bin
+COPY --from=builder /usr/src/app/bin/msgbox_syswin.exe        /usr/local/bin/msgbox_syswin.exe
+COPY --from=builder /usr/src/app/bin/msgbox_syscall.exe       /usr/local/bin/msgbox_syscall.exe
+
+ENTRYPOINT ["/usr/local/bin/msgbox_syscall.exe"]

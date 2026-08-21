@@ -52,5 +52,6 @@ docker-build:
 	@docker build . \
 		--target binary \
 		--build-arg GO_VERSION=${GO_VERSION} \
+		--build-arg BIN_VERSION=${BIN_VERSION} \
 		-t google85/msgbox-gui:binary \
 		-o ./bin/docker/

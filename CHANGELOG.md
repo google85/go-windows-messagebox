@@ -1,6 +1,10 @@
 #### Changelog #
 *************************************
 
+### v1.0.1
+- [x] add binary version as Docker image label
+
+
 ### v1.0.0
 - [x] update devcontainer to use image from DockerHub + additions
 - [x] add `make docker-build` of Windows binaries
